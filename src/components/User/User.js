@@ -1,9 +1,21 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 const user = (props) => (
     <div key={props.id}>
-        <h1>{props.name}</h1>
-        <button onClick={this.deleteUserHandler}>Delete</button>
+        <p>{props.name}</p>
+        <Button 
+            variant="contained"
+            color="primary"
+            onClick={() => props.updateHandler(props.id)}>
+            Update
+        </Button>
+        <Button 
+            variant="contained" 
+            color="secondary"
+            onClick={() => props.deleteHandler(props.id)}>
+            Delete
+        </Button>
     </div>
 );
 

@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
 import axios from '../../axios';
 import User from '../../components/User/User';
+import NewUser from '../NewUser/NewUser';
+import Aux from '../../hoc/Auxiliary';
 
 class Users extends Component {
     state = {
-        users: []
+        users: [],
+        error: false
     }
 
     componentDidMount () {
         axios.get('/users')
             .then(response => {
-                const users = response.data.slice(0, 4);
+                const users = response.data.slice(0, 2);
                 const userList = users.map(user => {
                     return {
                         ...user
@@ -23,12 +26,28 @@ class Users extends Component {
             });
     }
 
-    // deleteUserHandler = (id) => {
-    //     axios.delete('/posts/' + props.id)
-    //         .then(response =>{
-    //             console.log(response)
-    //         });
-    // }
+    createHandler = (user) => {
+        user.id = this.state.users.length + 1;
+        var joined = this.state.users.concat(user);
+        this.setState({ users: joined });
+    }
+
+    updateHandler = (id) => {
+        console.log(id)
+    }
+
+    deleteHandler = (id) => {
+        axios.delete('/users/' + id)
+            .then(response => {
+                this.setState(prevState => {
+                    const users = prevState.users.filter(user => user.id !== id);
+                    return {users}
+                })
+            })
+            .catch(error => {
+                this.setState({error: true});
+            });
+    }
 
     render () {
         let users = <p style={{textAlign: 'center'}}>Something went wrong!</p>
@@ -37,12 +56,19 @@ class Users extends Component {
                 return (
                     <User 
                         key={user.id}
+                        id={user.id}
                         name={user.name}
-                        clicked={() => this.deleteUserHandler(user.id)} />
+                        deleteHandler={this.deleteHandler}
+                        updateHandler={this.updateHandler} />
                 );
             })
         }
-        return users
+        return (
+            <Aux>
+                <NewUser createHandler={this.createHandler} />
+                {users}
+            </Aux>
+        );
     }
 
 }

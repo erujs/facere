@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import axios from '../../axios';
-import User from '../../components/User/User';
-import NewUser from '../NewUser/NewUser';
 import Aux from '../../hoc/Auxiliary';
+import User from '../../components/User/User';
+import CreateUser from '../../components/CreateUser/CreateUser';
+import UpdateUser from '../../components/UpdateUser/UpdateUser';
 
 class Users extends Component {
     state = {
         users: [],
-        error: false
+        error: false,
+        update: false
     }
 
     componentDidMount () {
@@ -65,7 +67,8 @@ class Users extends Component {
         }
         return (
             <Aux>
-                <NewUser createHandler={this.createHandler} />
+                <UpdateUser updateHandler={this.updateHandler} key={this.props.id}/> 
+                <CreateUser createHandler={this.createHandler} />
                 {users}
             </Aux>
         );

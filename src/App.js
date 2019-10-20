@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Home from './containers/Home/Home';
+import { Container } from '@material-ui/core';
 
 class App extends Component {
   render() {
@@ -22,9 +23,9 @@ class App extends Component {
     //       </a>
     //     </header>
     //   </div>
-      <div>
+      <Container maxWidth="sm">
         <Home />
-      </div>
+      </Container>
     );
   }
 }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { TextField, Button } from '@material-ui/core';
+import Aux from '../../hoc/Auxiliary';
 
-class NewUser extends Component {
+class UpdateUser extends Component {
     state = {
         name: '',
         submit: false
@@ -32,29 +32,27 @@ class NewUser extends Component {
 
     render () {
         return (
-            <div>
-                <form>
-                    <TextField
-                        id="outlined-email-input"
-                        label="Name"
-                        // className={classes.textField}
-                        // type="email"
-                        name="name"
-                        // autoComplete="email"
-                        margin="normal"
-                        variant="outlined"
-                        onChange={this.changeHandler}
-                    />
-                    <Button 
-                        variant="contained" 
-                        onClick={() => this.props.createHandler(this.state)}>
-                        Create
-                    </Button>
-                </form>
+            <Aux>
+                <TextField
+                    id="outlined-name-input"
+                    label="Name"
+                    // className={classes.textField}
+                    type="text"
+                    name="name"
+                    // autoComplete="name"
+                    margin="normal"
+                    variant="outlined"
+                    onChange={this.changeHandler}
+                />
+                <Button 
+                    variant="contained" 
+                    onClick={() => this.props.createHandler(this.state)}>
+                    Update
+                </Button>
                 {/* <input type="text" value={this.state.name} onChange={(event) => this.setState({name: event.target.value})} /> */}
-            </div>
+            </Aux>
         )
     }
 }
 
-export default NewUser;
+export default UpdateUser;

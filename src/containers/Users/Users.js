@@ -6,10 +6,14 @@ import CreateUser from '../../components/CreateUser/CreateUser';
 import UpdateUser from '../../components/UpdateUser/UpdateUser';
 
 class Users extends Component {
-    state = {
-        users: [],
-        error: false,
-        update: false
+    constructor(props){
+        super(props)
+        this.state = {
+            users: [],
+            name: '',
+            fake: false,
+            error: false
+        }
     }
 
     componentDidMount () {
@@ -36,17 +40,27 @@ class Users extends Component {
         const updatedUsers = this.state.users.concat(newUser);
         axios.post('/users/', props)
             .then(response => {
-                this.setState({ users: updatedUsers });
+                this.setState({users: updatedUsers});
             })
             .catch(error => {
                 this.setState({error: true});
             });
     }
 
-    updaterHandler = (props) => {
-        let update = '';
-        if(!props.fake){
-            update = <UpdateUser name={props.name} />
+    updateMappingHandler = (id) => {
+        let userData = this.state.users.find(data => {
+            return data.id === id;
+        })
+        this.setState({
+            name: userData.name, 
+            fake: userData.fake
+        })
+    }
+
+    updateHandler = (props) => {
+        console.log(props)
+        // if(!userData.fake){
+        //     console.log('nope') 
             // axios.put('/users/' + props.id, props)
             //     .then(response => {
             //         console.log(response)
@@ -54,10 +68,9 @@ class Users extends Component {
             //     .catch(error => {
             //         this.setState({error: true});
             //     });
-        } else {
-            update = <UpdateUser name={props.name} />            
-        }
-        return update;
+        // } else {
+        //     console.log('fake') 
+        // }
     }
 
     deleteHandler = (id) => {
@@ -82,12 +95,16 @@ class Users extends Component {
                         key={user.id}
                         data={user}
                         deleteHandler={this.deleteHandler}
-                        updateHandler={this.updaterHandler} />
+                        updateHandler={this.updateMappingHandler} />
                 );
             })
         }
         return (
             <Aux>
+                <UpdateUser 
+                    fake={this.state.fake}
+                    name={this.state.name} 
+                    updateHandler={this.updateHandler} />
                 <CreateUser createHandler={this.createHandler} />
                 {users}
             </Aux>

@@ -12,7 +12,7 @@ const user = (props) => (
         <Button 
             variant="contained"
             color="primary"
-            onClick={() => props.updateHandler(props.data)}>
+            onClick={() => props.updateHandler(props.data.id)}>
             Update
         </Button>
         <Button 

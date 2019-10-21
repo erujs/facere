@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { TextField, Button } from '@material-ui/core';
 import Aux from '../../hoc/Auxiliary';
 

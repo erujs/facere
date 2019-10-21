@@ -3,56 +3,51 @@ import axios from 'axios';
 import { TextField, Button } from '@material-ui/core';
 import Aux from '../../hoc/Auxiliary';
 
-class UpdateUser extends Component {
-    state = {
-        name: '',
-        submit: false
-    }
-
-    userDataHandler = () => {
-        const data = {
-            name: this.state.name
-        }
-        axios.post('/user/', data)
-            .then(response => {
-                this.setState({submit: true});
-            });
-    }
-
-    changeHandler = (event) => {
-        this.setState({name: event.target.value})
-        // const { users } = { ...this.state };
-        // const currentState = users;
-        // const { name, value } = e.target;
-        // console.log(currentState)
-        // currentState[name] = value;
-        // this.setState({ users: currentState });
-        // this.setState({ name:  });
-    }
-
-    render () {
-        return (
-            <Aux>
-                <TextField
-                    id="outlined-name-input"
-                    label="Name"
-                    // className={classes.textField}
-                    type="text"
-                    name="name"
-                    // autoComplete="name"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={this.changeHandler}
-                />
-                <Button 
-                    variant="contained" 
-                    onClick={() => this.props.createHandler(this.state)}>
-                    Update
-                </Button>
-                {/* <input type="text" value={this.state.name} onChange={(event) => this.setState({name: event.target.value})} /> */}
-            </Aux>
-        )
-    }
+const updateUser = (props) => {
+    console.log(props)
+    return (
+        <p>{props.name}</p>
+    )
 }
 
-export default UpdateUser;
+// class UpdateUser extends Component {
+//     state = {
+//         name: '',
+//         submit: false
+//     }
+
+//     updateHandler = (props) => {
+//         console.log(props)
+//         axios.put('/users/' + props.id, props)
+//             .then(response => {
+//                 console.log(response)
+//             })
+//             .catch(error => {
+//                 this.setState({error: true});
+//             });
+//     }
+
+//     render () {
+//         return (
+//             <Aux>
+//                 <TextField
+//                     id="outlined-name-input"
+//                     label="Name"
+//                     type="text"
+//                     name="name"
+//                     margin="normal"
+//                     variant="outlined"
+//                     onChange={(event) => this.setState({name: event.target.value})}
+//                     value={this.state.name}
+//                 />
+//                 <Button 
+//                     variant="contained" 
+//                     onClick={() => this.props.updateHandler(this.state)}>
+//                     Update
+//                 </Button>
+//             </Aux>
+//         )
+//     }
+// }
+
+export default updateUser;

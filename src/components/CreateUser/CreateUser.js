@@ -6,17 +6,7 @@ import Aux from '../../hoc/Auxiliary';
 class CreateUser extends Component {
     state = {
         name: '',
-        submit: false
-    }
-
-    userDataHandler = () => {
-        const data = {
-            name: this.state.name
-        }
-        axios.post('/user/', data)
-            .then(response => {
-                this.setState({submit: true});
-            });
+        fake: true
     }
 
     changeHandler = (event) => {

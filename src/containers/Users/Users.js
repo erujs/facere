@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import axios from '../../axios';
 import Aux from '../../hoc/Auxiliary';
 import User from '../../components/User/User';
-import CreateUser from '../../components/CreateUser/CreateUser';
-import UpdateUser from '../../components/UpdateUser/UpdateUser';
+import ChangeUsers from '../../components/ChangeUsers/ChangeUsers';
+import {Table,
+    TableHead,
+    TableRow,
+    TableCell} from '@material-ui/core';
 
 class Users extends Component {
     constructor(props){
@@ -11,6 +14,8 @@ class Users extends Component {
         this.state = {
             users: [],
             name: '',
+            email: '',
+            phone: '',
             fake: false,
             error: false
         }
@@ -52,7 +57,9 @@ class Users extends Component {
             return data.id === id;
         })
         this.setState({
-            name: userData.name, 
+            name: userData.name,
+            email: userData.email,
+            phone: userData.phone,
             fake: userData.fake
         })
     }
@@ -101,12 +108,25 @@ class Users extends Component {
         }
         return (
             <Aux>
-                <UpdateUser 
+                <ChangeUsers 
                     fake={this.state.fake}
-                    name={this.state.name} 
-                    updateHandler={this.updateHandler} />
-                <CreateUser createHandler={this.createHandler} />
-                {users}
+                    name={this.state.name}
+                    email={this.state.email}
+                    phone={this.state.phone}
+                    updateHandler={this.updateHandler}
+                    createHandler={this.createHandler} />
+                <Table aria-label="customized table">
+                    <TableHead>
+                      <TableRow>
+                          <TableCell>ID</TableCell>
+                          <TableCell>NAME</TableCell>
+                          <TableCell>EMAIL</TableCell>
+                          <TableCell>CONTACT#</TableCell>
+                          <TableCell>ACTION</TableCell>
+                      </TableRow>
+                    </TableHead>
+                        {users}
+                </Table>
             </Aux>
         );
     }

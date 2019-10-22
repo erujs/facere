@@ -23,7 +23,7 @@ class App extends Component {
     //       </a>
     //     </header>
     //   </div>
-      <Container maxWidth="sm">
+      <Container maxWidth="lg">
         <Home />
       </Container>
     );

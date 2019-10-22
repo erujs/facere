@@ -110,20 +110,6 @@ class Users extends Component {
             });
     }
 
-    viewHandler = (id) => {
-        let userData = this.state.users.find(data => {
-            return data.id === id;
-        })
-        this.setState({
-            id: userData.id,
-            name: userData.name,
-            email: userData.email,
-            phone: userData.phone,
-            fake: userData.fake,
-            update: true
-        })
-    }
-
     render () {
         let users = <p style={{textAlign: 'center'}}>Something went wrong!</p>
         if(!this.state.error) {
@@ -133,8 +119,7 @@ class Users extends Component {
                         key={user.id}
                         data={user}
                         deleteHandler={this.deleteHandler}
-                        updateHandler={this.updateMapHandler}
-                        viewHandler={this.viewHandler} />
+                        updateHandler={this.updateMapHandler} />
                 );
             })
         }

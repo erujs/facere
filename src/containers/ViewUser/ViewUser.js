@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Button} from '@material-ui/core';
 
-const viewUser = (props) => {
-    return(
-        <p>{props.name} sample</p>
-    );
+class ViewUser extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        console.log(this.props)
+        return(
+            <p>{this.props.location.state.name} sample</p>
+        );
+    }
 };
 
-export default viewUser;
+export default ViewUser;

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import {Button,
     TableBody,
     TableCell,
@@ -16,9 +17,20 @@ const user = (props) => {
                 <TableCell>{row.phone}</TableCell>
                 <TableCell>
                     <Button 
-                        variant="outlined"
-                        onClick={() => props.updateHandler(props.data.id)}>
-                        View
+                        variant="outlined">
+                        <Link
+                          to={{
+                            pathname: `/user/${props.data.id}`,
+                            state: {
+                              id: props.data.id,
+                              name: props.data.name,
+                              email: props.data.email,
+                              phone: props.data.phone,
+                              fake: props.data.fake
+                            }
+                          }}>
+                          View
+                        </Link>
                     </Button>
                     <Button 
                         variant="outlined"

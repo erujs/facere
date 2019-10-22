@@ -9,19 +9,18 @@ import {Table,
     TableCell} from '@material-ui/core';
 
 class Users extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            users: [],
-            name: '',
-            email: '',
-            phone: '',
-            fake: false,
-            error: false
-        }
+    state = {
+        users: [],
+        id: '',
+        name: '',
+        email: '',
+        phone: '',
+        fake: false,
+        update: false,
+        error: false
     }
 
-    componentDidMount () {
+    componentDidMount() {
         axios.get('/users')
             .then(response => {
                 // const users = response.data.slice(0, 2);
@@ -52,32 +51,50 @@ class Users extends Component {
             });
     }
 
-    updateMappingHandler = (id) => {
+    updateMapHandler = (id) => {
         let userData = this.state.users.find(data => {
             return data.id === id;
         })
         this.setState({
+            id: userData.id,
             name: userData.name,
             email: userData.email,
             phone: userData.phone,
-            fake: userData.fake
+            fake: userData.fake,
+            update: true
         })
     }
 
     updateHandler = (props) => {
-        console.log(props)
-        // if(!userData.fake){
-        //     console.log('nope') 
-            // axios.put('/users/' + props.id, props)
-            //     .then(response => {
-            //         console.log(response)
-            //     })
-            //     .catch(error => {
-            //         this.setState({error: true});
-            //     });
-        // } else {
-        //     console.log('fake') 
-        // }
+        const users = this.state.users;
+        users.splice(
+            users.indexOf(users.find(data => data.id === props.id)
+            ), 1, props)
+        if(!props.fake){
+            axios.put('/users/' + props.id, users)
+                .then(response => {
+                    this.setState({users: users,
+                        id: '',
+                        name: '',
+                        email: '',
+                        phone: '',
+                        fake: false,
+                        update: false,
+                        error: false});
+                })
+                .catch(error => {
+                    this.setState({error: true});
+                });
+        } else {
+            this.setState({users: users,
+                id: '',
+                name: '',
+                email: '',
+                phone: '',
+                fake: false,
+                update: false,
+                error: false});
+        }
     }
 
     deleteHandler = (id) => {
@@ -93,6 +110,20 @@ class Users extends Component {
             });
     }
 
+    viewHandler = (id) => {
+        let userData = this.state.users.find(data => {
+            return data.id === id;
+        })
+        this.setState({
+            id: userData.id,
+            name: userData.name,
+            email: userData.email,
+            phone: userData.phone,
+            fake: userData.fake,
+            update: true
+        })
+    }
+
     render () {
         let users = <p style={{textAlign: 'center'}}>Something went wrong!</p>
         if(!this.state.error) {
@@ -102,17 +133,20 @@ class Users extends Component {
                         key={user.id}
                         data={user}
                         deleteHandler={this.deleteHandler}
-                        updateHandler={this.updateMappingHandler} />
+                        updateHandler={this.updateMapHandler}
+                        viewHandler={this.viewHandler} />
                 );
             })
         }
         return (
             <Aux>
                 <ChangeUsers 
+                    id={this.state.id}
                     fake={this.state.fake}
                     name={this.state.name}
                     email={this.state.email}
                     phone={this.state.phone}
+                    update={this.state.update}
                     updateHandler={this.updateHandler}
                     createHandler={this.createHandler} />
                 <Table aria-label="customized table">

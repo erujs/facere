@@ -16,17 +16,18 @@ const user = (props) => {
                 <TableCell>{row.phone}</TableCell>
                 <TableCell>
                     <Button 
-                        variant="contained">
+                        variant="outlined"
+                        onClick={() => props.updateHandler(props.data.id)}>
                         View
                     </Button>
                     <Button 
-                        variant="contained"
+                        variant="outlined"
                         color="primary"
                         onClick={() => props.updateHandler(props.data.id)}>
                         Update
                     </Button>
                     <Button 
-                        variant="contained" 
+                        variant="outlined" 
                         color="secondary"
                         onClick={() => props.deleteHandler(props.data.id)}>
                         Delete

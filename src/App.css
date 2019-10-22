@@ -31,3 +31,12 @@
     transform: rotate(360deg);
   }
 }
+
+.Link{
+  margin-left: 8px;
+  color: #61dafb;
+}
+
+.flex-row{
+  flex-direction: row;
+}

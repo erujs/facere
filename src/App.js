@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import { Route, Switch } from "react-router-dom";
+import {Route, Switch, Link} from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 import Users from '../src/containers/Users/Users';
 import ViewUser from '../src/containers/ViewUser/ViewUser';
-import { Container } from '@material-ui/core';
+import {Container, Button} from '@material-ui/core';
 
 class App extends Component {
   render() {
@@ -16,14 +16,20 @@ class App extends Component {
             Edit <code>src/App.js</code> and save to reload.
           </p> */}
           <h1>[404] Page Not Found!</h1>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <div className="flex-row">
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </a> ||
+            <Link 
+                to='/' 
+                className="Link">Go Back
+            </Link>
+          </div>
         </header>
       </div>
     )

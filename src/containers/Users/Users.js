@@ -111,7 +111,7 @@ class Users extends Component {
     }
 
     render () {
-        let users = <p style={{textAlign: 'center'}}>Something went wrong!</p>
+        let users = <p style={{textAlign: 'center'}}>HTTP ERROR 500</p>
         if(!this.state.error) {
             users = this.state.users.map(user => {
                 return (
@@ -144,7 +144,7 @@ class Users extends Component {
                           <TableCell>ACTION</TableCell>
                       </TableRow>
                     </TableHead>
-                        {users}
+                    {users}
                 </Table>
             </Aux>
         );

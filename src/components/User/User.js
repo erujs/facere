@@ -16,29 +16,28 @@ const user = (props) => {
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.phone}</TableCell>
                 <TableCell>
+                    <Link
+                        style={{marginRight: '8px', textDecoration: 'none'}}                    
+                        to={{
+                          pathname: `/user/${props.data.id}`,
+                          state: {
+                            id: props.data.id,
+                            name: props.data.name,
+                            email: props.data.email,
+                            phone: props.data.phone,
+                            fake: props.data.fake
+                          }
+                        }}><Button variant="outlined">View</Button>
+                    </Link>
                     <Button 
-                        variant="outlined">
-                        <Link
-                          to={{
-                            pathname: `/user/${props.data.id}`,
-                            state: {
-                              id: props.data.id,
-                              name: props.data.name,
-                              email: props.data.email,
-                              phone: props.data.phone,
-                              fake: props.data.fake
-                            }
-                          }}>
-                          View
-                        </Link>
-                    </Button>
-                    <Button 
+                        style={{marginRight: '8px'}}
                         variant="outlined"
                         color="primary"
                         onClick={() => props.updateHandler(props.data.id)}>
                         Update
                     </Button>
                     <Button 
+                        style={{marginRight: '8px'}}
                         variant="outlined" 
                         color="secondary"
                         onClick={() => props.deleteHandler(props.data.id)}>

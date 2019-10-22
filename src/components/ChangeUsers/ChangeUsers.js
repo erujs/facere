@@ -11,7 +11,10 @@ class ChangeUsers extends Component {
             email: '',
             phone: '',
             fake: false,
-            update: false
+            update: false,
+            validname: true,
+            validemail: true,
+            validphone: true,
         }
         this.initialState = this.state;
     }
@@ -29,16 +32,34 @@ class ChangeUsers extends Component {
         }
     }
 
-    changeHandler = (event) => {
-        this.setState({name: event.target.value})
-        // const { users } = { ...this.state };
-        // const currentState = users;
-        // const { name, value } = e.target;
-        // console.log(currentState)
-        // currentState[name] = value;
-        // this.setState({ users: currentState });
-        // this.setState({ name:  });
+    validate(name, value){
+        switch(name) {
+            case 'name':
+                if(value.trim() !== ''){
+                    return true
+                };
+            // break;
+            case 'email':
+                const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+                if(pattern.test(value)){
+                  return true
+                };
+            // break; 
+            case 'phone':
+                const regexr = /[\d()x-]/;
+                if(regexr.test(value)){
+                    return true
+                };
+            default:
+                return false;
+        }
     }
+
+    changeHandler = name => event => {
+        this.setState({[name]: event.target.value });
+        let valid = this.validate(name, event.target.value);
+        this.setState({['valid'+name]: valid})
+    };
 
     clickHandler = () => {
         this.props.updateHandler(this.state)
@@ -48,6 +69,7 @@ class ChangeUsers extends Component {
     render () {
         let button = 
             <Button 
+                style={{margin: '24px 0px 8px'}}
                 variant="contained" 
                 onClick={() => this.props.createHandler(this.state)}>
                 Create
@@ -56,12 +78,14 @@ class ChangeUsers extends Component {
             button = 
             <Aux>
                 <Button 
+                    style={{margin: '24px 8px 8px'}}
                     variant="contained"
                     color="primary"
                     onClick={this.clickHandler}>
                     Update
                 </Button>
                 <Button 
+                    style={{margin: '24px 0px 8px'}}
                     variant="contained" 
                     onClick={() => this.setState(this.initialState)}>
                     Cancel
@@ -71,33 +95,39 @@ class ChangeUsers extends Component {
         return (
             <Aux>
                 <TextField
+                    style={{marginRight: '8px'}}
+                    error={!this.state.validname}
                     id="outlined-name-input"
                     label="Name"
                     type="text"
                     name="name"
                     margin="normal"
                     variant="outlined"
-                    onChange={(event) => this.setState({name: event.target.value})}
+                    onChange={this.changeHandler('name')}
                     value={this.state.name}
                 />
                 <TextField
+                    style={{marginRight: '8px'}}
+                    error={!this.state.validemail}
                     id="outlined-email-input"
                     label="Email"
                     type="email"
                     name="email"
                     margin="normal"
                     variant="outlined"
-                    onChange={(event) => this.setState({email: event.target.value})}
+                    onChange={this.changeHandler('email')}
                     value={this.state.email}
                 />
                 <TextField
+                    style={{marginRight: '8px'}}
+                    error={!this.state.validphone}
                     id="outlined-phone-input"
                     label="Contact"
                     type="text"
-                    name="name"
+                    name="phone"
                     margin="normal"
                     variant="outlined"
-                    onChange={(event) => this.setState({phone: event.target.value})}
+                    onChange={this.changeHandler('phone')}
                     value={this.state.phone}
                 />
                 {button}

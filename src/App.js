@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import Users from '../src/containers/Users/Users';
 import ViewUser from '../src/containers/ViewUser/ViewUser';
-import {Container, Button} from '@material-ui/core';
+import {Container} from '@material-ui/core';
 
 class App extends Component {
   render() {

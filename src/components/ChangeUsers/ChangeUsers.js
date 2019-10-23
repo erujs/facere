@@ -14,7 +14,7 @@ class ChangeUsers extends Component {
             update: false,
             validname: true,
             validemail: true,
-            validphone: true,
+            validphone: true
         }
         this.initialState = this.state;
     }
@@ -69,6 +69,9 @@ class ChangeUsers extends Component {
     render () {
         let button = 
             <Button 
+                disabled={!((this.state.name && this.state.validname)
+                    && (this.state.email && this.state.validemail) 
+                    && (this.state.phone && this.state.validphone))}
                 style={{margin: '24px 0px 8px'}}
                 variant="contained" 
                 onClick={() => this.props.createHandler(this.state)}>
@@ -78,6 +81,9 @@ class ChangeUsers extends Component {
             button = 
             <Aux>
                 <Button 
+                    disabled={!((this.state.name && this.state.validname)
+                        && (this.state.email && this.state.validemail) 
+                        && (this.state.phone && this.state.validphone))}
                     style={{margin: '24px 8px 8px'}}
                     variant="contained"
                     color="primary"

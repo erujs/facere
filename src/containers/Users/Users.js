@@ -39,7 +39,11 @@ class Users extends Component {
     }
 
     createHandler = (props) => {
-        props.id = this.state.users.length + 1;
+        let id = 0;
+        this.state.users.map(function(obj){
+            if(obj.id > id) id = obj.id;
+        });
+        props.id = id + 1;
         const newUser = {...props, fake: true}
         const updatedUsers = this.state.users.concat(newUser);
         axios.post('/users/', props)
